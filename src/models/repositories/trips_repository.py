@@ -9,10 +9,10 @@ class TripsRepository:
         cursor = self.__conn.cursor()
         cursor.execute(
             '''
-            INSERT INTO trips 
-                (id, destination, start_date, end_date, owner_name, owner_email)
-            VALUES
-                (?, ?, ?, ?, ?, ?)
+                INSERT INTO trips
+                    (id, destination, start_date, end_date, owner_name, owner_email)
+                VALUES
+                    (?, ?, ?, ?, ?, ?)
             ''', (
                 trips_infos["id"],
                 trips_infos["destination"],
@@ -27,21 +27,19 @@ class TripsRepository:
     def find_trip_by_id(self, trip_id: str) -> Tuple:
         cursor = self.__conn.cursor()
         cursor.execute(
-            '''
-            SELECT * FROM trips WHERE id = ?
-            ''', (trip_id,)
+            '''SELECT * FROM trips WHERE id = ?''', (trip_id,)
         )
         trip = cursor.fetchone()
         return trip
-    
+
     def update_trip_status(self, trip_id: str) -> None:
         cursor = self.__conn.cursor()
         cursor.execute(
             '''
-            UPDATE trips 
-                SET status = 1
-            WHERE 
-                id = ?
+                UPDATE trips
+                    SET status = 1
+                WHERE
+                    id = ?
             ''', (trip_id,)
         )
         self.__conn.commit()

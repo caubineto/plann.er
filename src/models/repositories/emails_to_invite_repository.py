@@ -9,14 +9,14 @@ class EmailsToInviteRepository:
         cursor = self.__conn.cursor()
         cursor.execute(
             '''
-            INSERT INTO emails_to_invite 
-                (id, trip_id, email)
-            VALUES
-                (?, ?, ?)
+                INSERT INTO emails_to_invite
+                    (id, trip_id, email)
+                VALUES
+                    (?, ?, ?)
             ''', (
-                email_infos.get('id'),
-                email_infos.get('trip_id'),
-                email_infos.get('email')
+                email_infos["id"],
+                email_infos["trip_id"],
+                email_infos["email"],
             )
         )
         self.__conn.commit()
@@ -24,9 +24,7 @@ class EmailsToInviteRepository:
     def find_emails_from_trip(self, trip_id: str) -> List[Tuple]:
         cursor = self.__conn.cursor()
         cursor.execute(
-            '''
-            SELECT * FROM emails_to_invite WHERE trip_id = ?
-            ''', (trip_id,)
+            '''SELECT * FROM emails_to_invite WHERE trip_id = ?''', (trip_id,)
         )
         emails = cursor.fetchall()
         return emails
